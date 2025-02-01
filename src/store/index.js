@@ -1,9 +1,8 @@
-import { createStore } from "redux";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const initialState = { counter: 0, showCounter: true };
 
-createSlice({
+const counterSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
@@ -21,6 +20,18 @@ createSlice({
     },
   },
 });
+
+const store = configureStore({
+  reducer: {
+    counter: counterSlice.reducer,
+  },
+});
+
+export default store;
+
+/* 
+OLD WAY:
+- if we use redux-toolkit we handle  the states in the creatSlice.reducrs
 
 const counterReducer = (state = initialState, action) => {
   if (action.type === "increment") {
@@ -54,6 +65,4 @@ const counterReducer = (state = initialState, action) => {
   return state;
 };
 
-const store = createStore(counterReducer);
-
-export default store;
+*/
